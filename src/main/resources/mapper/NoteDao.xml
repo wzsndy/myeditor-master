@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是指明Mybatis扫描的目录-->
+<mapper namespace="com.it.dao.NoteDao">
+	
+	<insert id="add" parameterType="com.it.bean.Note">
+		INSERT INTO note (noteId,title,createTime,group_id)
+		VALUES (#{noteId}, #{title}, #{createTime}, #{group_id})
+	</insert>
+	
+	 <update id="update" parameterType="com.it.bean.Note">
+        UPDATE note
+        SET
+            title       = #{title},
+            content     = #{content},
+            modifyTime  = #{modifyTime}
+            
+        WHERE noteId = #{noteId}
+    </update>
+    
+     <insert id="updateGroupId" parameterType="com.it.bean.Note">
+        UPDATE note
+        SET
+         	group_id  = #{group_id}
+            
+        WHERE noteId = #{noteId}
+    </insert>
+     
+     <select id="findById" resultType="com.it.bean.Note"
+      parameterType="java.lang.String">
+        SELECT noteId,title,content,createTime,modifyTime,group_id
+        FROM note
+        WHERE 
+        noteId = #{noteId}
+    </select>
+    
+    <delete id="delete" parameterType="java.lang.String">
+    	DELETE FROM note 
+    	WHERE 
+    	noteId = #{noteId}
+    </delete>
+    <delete id="deleteByGroupId" parameterType="java.lang.String">
+    	DELETE FROM note 
+    	WHERE 
+    	group_id = #{groupId}
+    </delete>
+</mapper>
